@@ -1,0 +1,23 @@
+# Videos originales (dataset completo - demasiado pesado para git)
+originales/
+
+# Videos de output generados (reproducibles con los scripts)
+kp_overlay/output_overlay/
+kp_overlay/videos_input/
+claude_design_assets/videos_keypoints_superpuestos/
+
+# Video personal
+*.mp4
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+.env
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini

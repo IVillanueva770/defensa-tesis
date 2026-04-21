@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Preview Diseños — Defensa de Tesis</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: system-ui, sans-serif;
+    background: #111;
+    color: #fff;
+  }
+
+  /* ── Selector de opción ── */
+  .selector {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    gap: 2px;
+    background: #000;
+    padding: 8px 12px;
+    align-items: center;
+  }
+  .selector span {
+    color: #888;
+    font-size: 12px;
+    margin-right: 10px;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+  }
+  .tab {
+    padding: 7px 22px;
+    border: none;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all .2s;
+    letter-spacing: .03em;
+  }
+  .tab.a { background: #0A1628; color: #00E5FF; border: 1px solid #00E5FF44; }
+  .tab.b { background: #1A3A5C; color: #fff; border: 1px solid #ffffff33; }
+  .tab.c { background: #E85D04; color: #fff; border: 1px solid transparent; }
+  .tab.active.a { background: #00E5FF; color: #0A1628; }
+  .tab.active.b { background: #fff; color: #1A3A5C; }
+  .tab.active.c { background: #fff; color: #E85D04; }
+
+  .hint {
+    margin-left: auto;
+    font-size: 11px;
+    color: #555;
+    letter-spacing: .04em;
+  }
+
+  /* ── Contenedor de slides ── */
+  .deck { display: none; padding-top: 52px; }
+  .deck.active { display: block; }
+
+  .slide {
+    width: 100%;
+    aspect-ratio: 16/9;
+    max-height: calc(100vh - 52px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 48px 64px;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 2px solid #222;
+  }
+
+  /* label de slide */
+  .slide-label {
+    position: absolute;
+    top: 14px; right: 20px;
+    font-size: 10px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    opacity: .35;
+  }
+
+  /* ══════════════════════════════════════════
+     OPCIÓN A — "Deep Signal"
+  ══════════════════════════════════════════ */
+  .deck-a .slide {
+    background: #0A1628;
+    color: #fff;
+    font-family: 'Inter', 'Helvetica Neue', sans-serif;
+  }
+  .deck-a .slide-label { color: #00E5FF; }
+
+  /* A — Portada */
+  .deck-a .s1 {
+    background: linear-gradient(135deg, #0A1628 60%, #0d2040);
+  }
+  .deck-a .s1::before {
+    content: '';
+    position: absolute;
+    top: -120px; right: -80px;
+    width: 420px; height: 420px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #00E5FF18 0%, transparent 70%);
+  }
+  .deck-a .s1 .kicker {
+    font-size: 11px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: #00E5FF;
+    margin-bottom: 20px;
+  }
+  .deck-a .s1 h1 {
+    font-size: clamp(18px, 2.6vw, 34px);
+    font-weight: 700;
+    line-height: 1.2;
+    max-width: 800px;
+    color: #fff;
+    margin-bottom: 28px;
+  }
+  .deck-a .s1 .meta {
+    font-size: 13px;
+    color: #8899aa;
+    line-height: 2;
+  }
+  .deck-a .s1 .meta strong { color: #00E5FF; }
+  .deck-a .ucasal-dot {
+    position: absolute;
+    bottom: 36px; right: 60px;
+    width: 52px; height: 52px;
+    border-radius: 10px;
+    background: #00E5FF22;
+    border: 1px solid #00E5FF44;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9px; color: #00E5FF; letter-spacing: .06em; text-align: center;
+    font-weight: 700; line-height: 1.3;
+  }
+
+  /* A — Problema */
+  .deck-a .s2 h2 {
+    font-size: clamp(14px, 2vw, 26px);
+    font-weight: 700;
+    color: #00E5FF;
+    margin-bottom: 36px;
+    letter-spacing: -.01em;
+  }
+  .deck-a .s2 .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+  }
+  .deck-a .s2 .card {
+    background: #ffffff08;
+    border: 1px solid #ffffff14;
+    border-radius: 8px;
+    padding: 24px 20px;
+  }
+  .deck-a .s2 .card .icon {
+    font-size: 28px;
+    margin-bottom: 12px;
+  }
+  .deck-a .s2 .card h3 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+  .deck-a .s2 .card p {
+    font-size: 12px;
+    color: #7a8fa0;
+    line-height: 1.6;
+  }
+
+  /* A — Pipeline */
+  .deck-a .s3 h2 {
+    font-size: clamp(14px, 2vw, 24px);
+    color: #00E5FF;
+    margin-bottom: 40px;
+    font-weight: 700;
+  }
+  .deck-a .s3 .pipeline {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    width: 100%;
+  }
+  .deck-a .s3 .pbox {
+    flex: 1;
+    background: #ffffff08;
+    border: 1px solid #00E5FF33;
+    border-radius: 8px;
+    padding: 18px 14px;
+    text-align: center;
+  }
+  .deck-a .s3 .pbox .label {
+    font-size: 9px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: #00E5FF;
+    margin-bottom: 8px;
+  }
+  .deck-a .s3 .pbox .name {
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+  .deck-a .s3 .pbox .sub {
+    font-size: 10px;
+    color: #566;
+  }
+  .deck-a .s3 .arrow {
+    flex: 0 0 40px;
+    text-align: center;
+    font-size: 20px;
+    color: #00E5FF66;
+  }
+  .deck-a .s3 .output {
+    border-color: #B8FF5766;
+    background: #B8FF5710;
+  }
+  .deck-a .s3 .output .label { color: #B8FF57; }
+
+  /* A — Resultados */
+  .deck-a .s4 h2 {
+    font-size: clamp(14px, 2vw, 24px);
+    color: #00E5FF;
+    font-weight: 700;
+    margin-bottom: 36px;
+  }
+  .deck-a .s4 .metrics {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .deck-a .s4 .m {
+    text-align: center;
+    padding: 20px;
+    background: #ffffff06;
+    border: 1px solid #ffffff10;
+    border-radius: 8px;
+  }
+  .deck-a .s4 .m .val {
+    font-size: clamp(24px, 4vw, 52px);
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .deck-a .s4 .m .val.good { color: #B8FF57; }
+  .deck-a .s4 .m .val.mid { color: #FFB347; }
+  .deck-a .s4 .m .val.low { color: #FF6B6B; }
+  .deck-a .s4 .m .lbl {
+    font-size: 11px;
+    color: #6a7a8a;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  .deck-a .s4 .note {
+    font-size: 12px;
+    color: #4a5a6a;
+    text-align: center;
+    border-top: 1px solid #ffffff0a;
+    padding-top: 16px;
+  }
+  .deck-a .s4 .note strong { color: #B8FF57; }
+
+  /* ══════════════════════════════════════════
+     OPCIÓN B — "Scientific Clean"
+  ══════════════════════════════════════════ */
+  .deck-b .slide {
+    background: #FFFFFF;
+    color: #1A3A5C;
+    font-family: 'Georgia', serif;
+  }
+  .deck-b .slide-label { color: #D62828; }
+
+  /* B — Portada */
+  .deck-b .s1 {
+    background: #FFFFFF;
+    border-left: 6px solid #D62828;
+  }
+  .deck-b .s1 .kicker {
+    font-size: 11px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: #D62828;
+    font-family: 'Helvetica Neue', sans-serif;
+    margin-bottom: 18px;
+  }
+  .deck-b .s1 h1 {
+    font-size: clamp(16px, 2.2vw, 30px);
+    font-weight: 700;
+    line-height: 1.25;
+    color: #1A3A5C;
+    max-width: 820px;
+    margin-bottom: 32px;
+    font-family: Georgia, serif;
+  }
+  .deck-b .s1 .divider {
+    width: 64px;
+    height: 3px;
+    background: #D62828;
+    margin-bottom: 24px;
+  }
+  .deck-b .s1 .meta {
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 13px;
+    color: #5a6a7a;
+    line-height: 2;
+  }
+  .deck-b .s1 .meta strong { color: #1A3A5C; }
+  .deck-b .s1 .corner {
+    position: absolute;
+    bottom: 0; right: 0;
+    width: 180px; height: 180px;
+    background: #F4F5F7;
+    clip-path: polygon(100% 0, 100% 100%, 0 100%);
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding: 18px;
+  }
+  .deck-b .s1 .corner span {
+    font-size: 10px;
+    color: #9aa;
+    font-family: sans-serif;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+  }
+
+  /* B — Problema */
+  .deck-b .s2 {
+    background: #F4F5F7;
+  }
+  .deck-b .s2 h2 {
+    font-size: clamp(14px, 2vw, 26px);
+    font-weight: 700;
+    color: #1A3A5C;
+    margin-bottom: 10px;
+    font-family: Georgia, serif;
+  }
+  .deck-b .s2 .subtitle {
+    font-size: 14px;
+    color: #D62828;
+    font-family: sans-serif;
+    margin-bottom: 32px;
+    font-weight: 400;
+    letter-spacing: .04em;
+  }
+  .deck-b .s2 .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 18px;
+  }
+  .deck-b .s2 .card {
+    background: #fff;
+    border-top: 3px solid #D62828;
+    padding: 22px 18px;
+    box-shadow: 0 1px 3px #0001;
+  }
+  .deck-b .s2 .card .icon { font-size: 26px; margin-bottom: 10px; }
+  .deck-b .s2 .card h3 {
+    font-size: 14px;
+    font-weight: 700;
+    font-family: sans-serif;
+    color: #1A3A5C;
+    margin-bottom: 8px;
+  }
+  .deck-b .s2 .card p {
+    font-size: 12px;
+    color: #667788;
+    line-height: 1.6;
+    font-family: sans-serif;
+  }
+
+  /* B — Pipeline */
+  .deck-b .s3 { background: #FFFFFF; }
+  .deck-b .s3 h2 {
+    font-size: clamp(14px, 2vw, 24px);
+    font-weight: 700;
+    color: #1A3A5C;
+    font-family: Georgia, serif;
+    margin-bottom: 36px;
+  }
+  .deck-b .s3 .pipeline {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    width: 100%;
+  }
+  .deck-b .s3 .pbox {
+    flex: 1;
+    background: #F4F5F7;
+    border: 1px solid #dde;
+    padding: 18px 14px;
+    text-align: center;
+    font-family: sans-serif;
+  }
+  .deck-b .s3 .pbox .label {
+    font-size: 9px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: #D62828;
+    margin-bottom: 8px;
+    font-weight: 700;
+  }
+  .deck-b .s3 .pbox .name {
+    font-size: 13px;
+    font-weight: 700;
+    color: #1A3A5C;
+    margin-bottom: 6px;
+  }
+  .deck-b .s3 .pbox .sub { font-size: 10px; color: #8899aa; }
+  .deck-b .s3 .arrow {
+    flex: 0 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: #1A3A5C88;
+    background: #fff;
+  }
+  .deck-b .s3 .output {
+    background: #1A3A5C;
+    border-color: #1A3A5C;
+  }
+  .deck-b .s3 .output .label { color: #fff; opacity: .6; }
+  .deck-b .s3 .output .name { color: #fff; }
+  .deck-b .s3 .output .sub { color: #ffffff99; }
+
+  /* B — Resultados */
+  .deck-b .s4 { background: #1A3A5C; color: #fff; }
+  .deck-b .s4 h2 {
+    font-size: clamp(14px, 2vw, 24px);
+    font-weight: 700;
+    margin-bottom: 36px;
+    font-family: Georgia, serif;
+    color: #fff;
+  }
+  .deck-b .s4 .metrics {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+  .deck-b .s4 .m {
+    text-align: center;
+    padding: 22px;
+    background: #ffffff0d;
+    border: 1px solid #ffffff1a;
+  }
+  .deck-b .s4 .m .val {
+    font-size: clamp(22px, 3.5vw, 48px);
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 8px;
+    font-family: Georgia, serif;
+  }
+  .deck-b .s4 .m .val.good { color: #7FD4A4; }
+  .deck-b .s4 .m .val.mid { color: #F0C060; }
+  .deck-b .s4 .m .val.low { color: #E88080; }
+  .deck-b .s4 .m .lbl {
+    font-size: 10px;
+    color: #ffffff66;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    font-family: sans-serif;
+  }
+  .deck-b .s4 .note {
+    font-size: 12px;
+    color: #ffffff55;
+    text-align: center;
+    font-family: sans-serif;
+    padding-top: 14px;
+    border-top: 1px solid #ffffff1a;
+  }
+  .deck-b .s4 .note strong { color: #7FD4A4; }
+
+  /* ══════════════════════════════════════════
+     OPCIÓN C — "Narrative Bold"
+  ══════════════════════════════════════════ */
+  .deck-c .slide {
+    background: #FAF7F2;
+    color: #1C1C1E;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+  }
+  .deck-c .slide-label { color: #E85D04; }
+
+  /* C — Portada */
+  .deck-c .s1 {
+    background: #1C1C1E;
+    color: #FAF7F2;
+  }
+  .deck-c .s1 .kicker {
+    font-size: 12px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: #E85D04;
+    margin-bottom: 24px;
+    font-weight: 600;
+  }
+  .deck-c .s1 h1 {
+    font-size: clamp(18px, 2.8vw, 38px);
+    font-weight: 800;
+    line-height: 1.1;
+    color: #FAF7F2;
+    max-width: 760px;
+    margin-bottom: 36px;
+    letter-spacing: -.02em;
+  }
+  .deck-c .s1 h1 em {
+    font-style: normal;
+    color: #E85D04;
+  }
+  .deck-c .s1 .meta {
+    font-size: 13px;
+    color: #888;
+    line-height: 2;
+    border-left: 3px solid #E85D04;
+    padding-left: 16px;
+  }
+  .deck-c .s1 .meta strong { color: #FAF7F2; }
+  .deck-c .s1 .blob {
+    position: absolute;
+    bottom: -60px; right: -60px;
+    width: 320px; height: 320px;
+    background: #E85D0415;
+    border-radius: 50%;
+  }
+
+  /* C — Problema */
+  .deck-c .s2 {
+    background: #FAF7F2;
+  }
+  .deck-c .s2 .headline {
+    font-size: clamp(20px, 3.2vw, 44px);
+    font-weight: 800;
+    color: #1C1C1E;
+    line-height: 1.05;
+    max-width: 700px;
+    margin-bottom: 36px;
+    letter-spacing: -.02em;
+  }
+  .deck-c .s2 .headline em {
+    font-style: normal;
+    color: #E85D04;
+  }
+  .deck-c .s2 .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+  }
+  .deck-c .s2 .card {
+    background: #1C1C1E;
+    padding: 22px 18px;
+    border-radius: 4px;
+  }
+  .deck-c .s2 .card .icon { font-size: 26px; margin-bottom: 12px; }
+  .deck-c .s2 .card h3 {
+    font-size: 14px;
+    font-weight: 700;
+    color: #FAF7F2;
+    margin-bottom: 8px;
+  }
+  .deck-c .s2 .card p {
+    font-size: 12px;
+    color: #888;
+    line-height: 1.6;
+  }
+
+  /* C — Pipeline */
+  .deck-c .s3 { background: #1C1C1E; color: #FAF7F2; }
+  .deck-c .s3 .headline {
+    font-size: clamp(16px, 2.4vw, 32px);
+    font-weight: 800;
+    color: #FAF7F2;
+    letter-spacing: -.02em;
+    margin-bottom: 40px;
+    line-height: 1.1;
+  }
+  .deck-c .s3 .headline em { font-style: normal; color: #E85D04; }
+  .deck-c .s3 .pipeline {
+    display: flex;
+    align-items: center;
+    gap: 0;
+  }
+  .deck-c .s3 .pbox {
+    flex: 1;
+    background: #FAF7F210;
+    border: 1px solid #FAF7F218;
+    border-radius: 4px;
+    padding: 18px 14px;
+    text-align: center;
+  }
+  .deck-c .s3 .pbox .label {
+    font-size: 9px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: #E85D04;
+    margin-bottom: 8px;
+    font-weight: 700;
+  }
+  .deck-c .s3 .pbox .name {
+    font-size: 13px;
+    font-weight: 700;
+    color: #FAF7F2;
+    margin-bottom: 6px;
+  }
+  .deck-c .s3 .pbox .sub { font-size: 10px; color: #666; }
+  .deck-c .s3 .arrow {
+    flex: 0 0 40px;
+    text-align: center;
+    font-size: 20px;
+    color: #E85D04;
+  }
+  .deck-c .s3 .output {
+    background: #E85D04;
+    border-color: #E85D04;
+  }
+  .deck-c .s3 .output .label { color: #FAF7F2; opacity: .7; }
+  .deck-c .s3 .output .name { color: #FAF7F2; }
+  .deck-c .s3 .output .sub { color: #FAF7F299; }
+
+  /* C — Resultados */
+  .deck-c .s4 { background: #FAF7F2; }
+  .deck-c .s4 .headline {
+    font-size: clamp(16px, 2.2vw, 30px);
+    font-weight: 800;
+    color: #1C1C1E;
+    letter-spacing: -.02em;
+    margin-bottom: 36px;
+  }
+  .deck-c .s4 .headline em { font-style: normal; color: #E85D04; }
+  .deck-c .s4 .metrics {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+  .deck-c .s4 .m {
+    padding: 24px;
+    border-radius: 4px;
+    text-align: center;
+  }
+  .deck-c .s4 .m.good { background: #1C1C1E; }
+  .deck-c .s4 .m.mid  { background: #2a2a2e; }
+  .deck-c .s4 .m.low  { background: #333; }
+  .deck-c .s4 .m .val {
+    font-size: clamp(24px, 4vw, 52px);
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 8px;
+    letter-spacing: -.02em;
+  }
+  .deck-c .s4 .m.good .val { color: #E85D04; }
+  .deck-c .s4 .m.mid  .val { color: #F0C060; }
+  .deck-c .s4 .m.low  .val { color: #E88080; }
+  .deck-c .s4 .m .lbl {
+    font-size: 10px;
+    color: #aaa;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+  .deck-c .s4 .note {
+    font-size: 13px;
+    color: #666;
+    text-align: center;
+    padding-top: 16px;
+    border-top: 2px solid #1C1C1E18;
+  }
+  .deck-c .s4 .note strong { color: #E85D04; }
+</style>
+</head>
+<body>
+
+<!-- ── Selector ── -->
+<div class="selector">
+  <span>Opción</span>
+  <button class="tab a active" onclick="show('a')">A — Deep Signal</button>
+  <button class="tab b" onclick="show('b')">B — Scientific Clean</button>
+  <button class="tab c" onclick="show('c')">C — Narrative Bold</button>
+  <span class="hint">↕ scroll para ver todos los slides de cada opción</span>
+</div>
+
+<!-- ══════════════════════════════════════
+     DECK A — Deep Signal
+═══════════════════════════════════════ -->
+<div class="deck deck-a active" id="deck-a">
+
+  <!-- A1: Portada -->
+  <div class="slide s1">
+    <span class="slide-label">01 / Portada</span>
+    <div class="kicker">Proyecto Final de Grado · UCASAL 2026</div>
+    <h1>Evaluación Automatizada de Técnica en Ejercicios de Fitness mediante Aprendizaje Profundo y Visión por Computadora</h1>
+    <div class="meta">
+      <strong>Ignacio Villanueva</strong><br>
+      Tutor: Mg. Lic. Lorena Talamé<br>
+      Facultad de Ingeniería e Informática · Ingeniería en Informática
+    </div>
+    <div class="ucasal-dot">UCASAL<br>2026</div>
+  </div>
+
+  <!-- A2: El problema -->
+  <div class="slide s2">
+    <span class="slide-label">04 / El Problema</span>
+    <h2>Evaluar técnica en ejercicios es difícil y costoso</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="icon">🚨</div>
+        <h3>Sin supervisión</h3>
+        <p>Errores de técnica pasan desapercibidos, generando riesgo de lesión. Una mala ejecución del press de hombro puede derivar en daño crónico en el manguito rotador.</p>
+      </div>
+      <div class="card">
+        <div class="icon">👁️</div>
+        <h3>Con supervisión humana</h3>
+        <p>El criterio varía según el profesional. No hay dos evaluaciones iguales, no es escalable y no puede registrarse objetivamente en el tiempo.</p>
+      </div>
+      <div class="card">
+        <div class="icon">💸</div>
+        <h3>Alternativas comerciales</h3>
+        <p>VICON, OptiTrack: USD 10.000–100.000+. Hardware especializado fuera del alcance de gimnasios, centros de rehabilitación e instituciones educativas.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- A3: Pipeline -->
+  <div class="slide s3">
+    <span class="slide-label">06 / La Solución</span>
+    <h2>Un pipeline de dos etapas: pose → clasificación</h2>
+    <div class="pipeline">
+      <div class="pbox">
+        <div class="label">Entrada</div>
+        <div class="name">Video RGB</div>
+        <div class="sub">Cámara estándar · MP4</div>
+      </div>
+      <div class="arrow">→</div>
+      <div class="pbox">
+        <div class="label">Etapa 1</div>
+        <div class="name">ViTPose</div>
+        <div class="sub">17 keypoints por frame · Vision Transformer</div>
+      </div>
+      <div class="arrow">→</div>
+      <div class="pbox">
+        <div class="label">Datos</div>
+        <div class="name">JSON Keypoints</div>
+        <div class="sub">Coordenadas (x, y, conf) · 48 frames</div>
+      </div>
+      <div class="arrow">→</div>
+      <div class="pbox">
+        <div class="label">Etapa 2</div>
+        <div class="name">PoseConv3D</div>
+        <div class="sub">ResNet3D SlowOnly · análisis temporal</div>
+      </div>
+      <div class="arrow">→</div>
+      <div class="pbox output">
+        <div class="label">Clasificación</div>
+        <div class="name">3 categorías</div>
+        <div class="sub">Correcta · Error codos · Error rodillas</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- A4: Resultados -->
+  <div class="slide s4">
+    <span class="slide-label">14 / Resultados</span>
+    <h2>Evolución del modelo a través de 3 experimentos</h2>
+    <div class="metrics">
+      <div class="m">
+        <div class="val low">51.2%</div>
+        <div class="lbl">Experimento Base</div>
+      </div>
+      <div class="m">
+        <div class="val mid">70.5%</div>
+        <div class="lbl">Transfer Learning (NTU60)</div>
+      </div>
+      <div class="m">
+        <div class="val good">91.6%</div>
+        <div class="lbl">Configuración Final</div>
+      </div>
+    </div>
+    <div class="note">
+      F1-score macro final: <strong>0.91</strong> · Brecha train/val: 2–4% · 427 ejemplos de validación
+    </div>
+  </div>
+
+</div><!-- /deck-a -->
+
+
+<!-- ══════════════════════════════════════
+     DECK B — Scientific Clean
+═══════════════════════════════════════ -->
+<div class="deck deck-b" id="deck-b">
+
+  <!-- B1: Portada -->
+  <div class="slide s1">
+    <span class="slide-label">01 / Portada</span>
+    <div class="kicker">Proyecto Final de Grado · UCASAL 2026</div>
+    <h1>Evaluación Automatizada de Técnica en Ejercicios de Fitness mediante Aprendizaje Profundo y Visión por Computadora</h1>
+    <div class="divider"></div>
+    <div class="meta">
+      <strong>Ignacio Villanueva</strong><br>
+      Tutor: Mg. Lic. Lorena Talamé<br>
+      Facultad de Ingeniería e Informática · Ingeniería en Informática
+    </div>
+    <div class="corner"><span>UCASAL<br>2026</span></div>
+  </div>
+
+  <!-- B2: El problema -->
+  <div class="slide s2">
+    <span class="slide-label">04 / El Problema</span>
+    <h2>El desafío de evaluar técnica en ejercicios</h2>
+    <div class="subtitle">Subjetividad · Costo · Escalabilidad</div>
+    <div class="grid">
+      <div class="card">
+        <div class="icon">🚨</div>
+        <h3>Sin supervisión</h3>
+        <p>Errores de técnica no detectados representan riesgo de lesión. En el press de hombro, la apertura excesiva de codos o la inestabilidad de rodillas son los errores más frecuentes.</p>
+      </div>
+      <div class="card">
+        <div class="icon">👁️</div>
+        <h3>Con supervisión humana</h3>
+        <p>La evaluación manual depende de la experiencia y criterio individual del profesional. No es reproducible, no es escalable y no permite seguimiento objetivo en el tiempo.</p>
+      </div>
+      <div class="card">
+        <div class="icon">💸</div>
+        <h3>Alternativas especializadas</h3>
+        <p>Los sistemas de captura de movimiento 3D (VICON, OptiTrack) requieren inversiones de USD 10.000–100.000+, inaccesibles para la mayoría de instituciones educativas y centros de rehabilitación.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- B3: Pipeline -->
+  <div class="slide s3">
+    <span class="slide-label">06 / La Solución</span>
+    <h2>Pipeline de procesamiento: video crudo → clasificación de técnica</h2>
+    <div class="pipeline">
+      <div class="pbox">
+        <div class="label">Entrada</div>
+        <div class="name">Video RGB</div>
+        <div class="sub">Cámara estándar · MP4</div>
+      </div>
+      <div class="arrow">→</div>
+      <div class="pbox">
+        <div class="label">Módulo 1</div>
+        <div class="name">ViTPose</div>
+        <div class="sub">17 puntos articulares · por frame</div>
+      </div>
+      <div class="arrow">→</div>
+      <div class="pbox">
+        <div class="label">Procesamiento</div>
+        <div class="name">JSON + Tracking</div>
+        <div class="sub">Corrección de IDs · 48 frames</div>
+      </div>
+      <div class="arrow">→</div>
+      <div class="pbox">
+        <div class="label">Módulo 2</div>
+        <div class="name">PoseConv3D</div>
+        <div class="sub">Clasificación temporal · ResNet3D</div>
+      </div>
+      <div class="arrow">→</div>
+      <div class="pbox output">
+        <div class="label">Resultado</div>
+        <div class="name">Técnica evaluada</div>
+        <div class="sub">Correcta · Error codos · Error rodillas</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- B4: Resultados -->
+  <div class="slide s4">
+    <span class="slide-label">14 / Resultados</span>
+    <h2>Progresión del modelo: tres configuraciones experimentales</h2>
+    <div class="metrics">
+      <div class="m">
+        <div class="val low">51.2%</div>
+        <div class="lbl">Experimento Base</div>
+      </div>
+      <div class="m">
+        <div class="val mid">70.5%</div>
+        <div class="lbl">Transfer Learning</div>
+      </div>
+      <div class="m">
+        <div class="val good">91.6%</div>
+        <div class="lbl">Configuración Final</div>
+      </div>
+    </div>
+    <div class="note">
+      F1-score macro: <strong>0.91</strong> · Validación sobre 427 muestras · Brecha train/val: 2–4%
+    </div>
+  </div>
+
+</div><!-- /deck-b -->
+
+
+<!-- ══════════════════════════════════════
+     DECK C — Narrative Bold
+═══════════════════════════════════════ -->
+<div class="deck deck-c" id="deck-c">
+
+  <!-- C1: Portada -->
+  <div class="slide s1">
+    <span class="slide-label">01 / Portada</span>
+    <div class="kicker">Proyecto Final de Grado · UCASAL 2026</div>
+    <h1>Evaluación <em>Automatizada</em> de Técnica en Ejercicios de Fitness mediante Aprendizaje Profundo y Visión por Computadora</h1>
+    <div class="meta">
+      <strong>Ignacio Villanueva</strong><br>
+      Tutor: Mg. Lic. Lorena Talamé<br>
+      Facultad de Ingeniería e Informática · Ingeniería en Informática
+    </div>
+    <div class="blob"></div>
+  </div>
+
+  <!-- C2: El problema -->
+  <div class="slide s2">
+    <span class="slide-label">04 / El Problema</span>
+    <div class="headline">¿Puede una cámara <em>reemplazar</em> al entrenador?</div>
+    <div class="grid">
+      <div class="card">
+        <div class="icon">🚨</div>
+        <h3>Sin supervisión</h3>
+        <p>Mala técnica → lesión silenciosa. En el press de hombro, los errores más frecuentes son la apertura excesiva de codos y la inestabilidad de rodillas.</p>
+      </div>
+      <div class="card">
+        <div class="icon">👁️</div>
+        <h3>Supervisión humana</h3>
+        <p>Subjetiva, cara y no escalable. El criterio varía entre profesionales y no permite seguimiento objetivo en el tiempo.</p>
+      </div>
+      <div class="card">
+        <div class="icon">💸</div>
+        <h3>Alternativas existentes</h3>
+        <p>VICON, OptiTrack: USD 10.000–100.000+. Tecnología de élite fuera del alcance de gimnasios y centros de rehabilitación.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- C3: Pipeline -->
+  <div class="slide s3">
+    <span class="slide-label">06 / La Solución</span>
+    <div class="headline">Del video crudo a la <em>clasificación de técnica</em></div>
+    <div class="pipeline">
+      <div class="pbox">
+        <div class="label">Entrada</div>
+        <div class="name">Video RGB</div>
+        <div class="sub">Cámara estándar</div>
+      </div>
+      <div class="arrow">→</div>
+      <div class="pbox">
+        <div class="label">Etapa 1</div>
+        <div class="name">ViTPose</div>
+        <div class="sub">17 keypoints · Vision Transformer</div>
+      </div>
+      <div class="arrow">→</div>
+      <div class="pbox">
+        <div class="label">Datos</div>
+        <div class="name">Skeleton data</div>
+        <div class="sub">JSON · 48 frames · tracking corregido</div>
+      </div>
+      <div class="arrow">→</div>
+      <div class="pbox">
+        <div class="label">Etapa 2</div>
+        <div class="name">PoseConv3D</div>
+        <div class="sub">Convolución 3D · análisis temporal</div>
+      </div>
+      <div class="arrow">→</div>
+      <div class="pbox output">
+        <div class="label">Salida</div>
+        <div class="name">3 clases</div>
+        <div class="sub">Correcta · Codos · Rodillas</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- C4: Resultados -->
+  <div class="slide s4">
+    <span class="slide-label">14 / Resultados</span>
+    <div class="headline">De 51% a <em>91.6%</em> — tres experimentos, una historia</div>
+    <div class="metrics">
+      <div class="m low">
+        <div class="val">51.2%</div>
+        <div class="lbl">Experimento Base · Overfitting severo</div>
+      </div>
+      <div class="m mid">
+        <div class="val">70.5%</div>
+        <div class="lbl">Transfer Learning · NTU60</div>
+      </div>
+      <div class="m good">
+        <div class="val">91.6%</div>
+        <div class="lbl">Config. Final · Tracking corregido</div>
+      </div>
+    </div>
+    <div class="note">
+      F1-score macro: <strong>0.91</strong> &nbsp;·&nbsp; Parmar et al. (referencia): F1 = 0.45 (codos) y 0.84 (rodillas) con clasificadores binarios separados
+    </div>
+  </div>
+
+</div><!-- /deck-c -->
+
+<script>
+function show(opt) {
+  document.querySelectorAll('.deck').forEach(d => d.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('deck-' + opt).classList.add('active');
+  document.querySelector('.tab.' + opt).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
