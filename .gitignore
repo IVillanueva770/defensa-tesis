@@ -4,7 +4,7 @@ originales/
 # Videos de output generados (reproducibles con los scripts)
 kp_overlay/output_overlay/
 kp_overlay/videos_input/
-claude_design_assets/videos_keypoints_superpuestos/
+claude_design_assets/videos_keypoints_superpuestos/videos/
 
 # Video personal
 *.mp4
