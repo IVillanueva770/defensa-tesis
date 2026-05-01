@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__claude_ai_Canva__request-outline-review",
+      "mcp__claude_ai_Canva__generate-design-structured",
+      "mcp__claude_ai_Canva__create-design-from-candidate",
+      "mcp__claude_ai_Canva__start-editing-transaction",
+      "mcp__claude_ai_Canva__perform-editing-operations",
+      "mcp__claude_ai_Canva__commit-editing-transaction",
+      "Bash(git -C \"C:/Users/Ignacio Villanueva/Desktop/Karpathy/Mano Derecha\" add -A)",
+      "Bash(git -C \"C:/Users/Ignacio Villanueva/Desktop/Karpathy/Mano Derecha\" commit -m \"exo: capture dos pensamientos — design system y spam en automatizacion social\")",
+      "Bash(git -C \"C:/Users/Ignacio Villanueva/Desktop/Karpathy/Mano Derecha\" push)",
+      "Bash(git -C \"C:/Users/Ignacio Villanueva/Desktop/Karpathy/Mano Derecha\" commit -m \"exo: mantenimiento 2026-04-21 — wiki frontend-design, index actualizado, improvements, limpieza general\")",
+      "Bash(git -C \"C:/Users/Ignacio Villanueva/Desktop/Karpathy/Mano Derecha\" commit -m \"exo: ingest conversacion wpp masivo — opt-out, bala unica, higiene de base, plataformas\")"
+    ]
+  }
+}
